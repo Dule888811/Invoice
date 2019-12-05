@@ -1,0 +1,51 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+#IzmeniFakturuNaslov {
+    margin-left: 36%;
+    margin-top: 10%;
+}
+#IzmeniFakturu {
+    margin-left: 17%;
+    margin-bottom: 20%;
+}
+#NaslovDodajStavku {
+    margin-left: 30%;
+    margin-bottom: 2%;
+}
+#DodajStavku {
+    margin-left: 8%;
+    margin-bottom: 20%;
+}
+#NaslovStavke {
+    margin-left: 40%;
+    margin-bottom: 16%;
+}
+#FormaIzmeniStavku {
+    display:flex;
+    padding-bottom:20%;
+}
+#izmeniStavkuNaslov {
+    padding-left:44%;
+}

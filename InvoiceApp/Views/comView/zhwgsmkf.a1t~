@@ -1,0 +1,167 @@
+﻿@model InvoiceApp.Models.comViewModel
+@{
+                /**/
+
+                /**/
+
+                /**/
+
+                /**/
+
+                /**/
+
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Index";
+}
+
+
+
+
+
+
+<p>
+
+</p>
+
+@if (Model.Document == null)
+{
+    <h2>Create</h2>
+    <form method="post" action="@Url.Action("Create", "Documents")">
+        @Html.AntiForgeryToken()
+        <label for "BrojFakture">Broj Fakture</label>
+        <input type="text" name="BrojFakture" placeholder="Unesite broj fakture" />
+        <input type="submit" value="Create" />
+    </form>
+
+}
+else
+{
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => Model.Document.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Document.BrojFakture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.Document.Ukupno)
+            </th>
+            <th></th>
+        </tr>
+
+
+
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => Model.Document.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Document.BrojFakture)
+            </td>
+            <td>
+                @Model.Document.Ukupno.ToString("0.00")
+            </td>
+
+            <td></td>
+        </tr>
+    </table>
+    <div id="divEditBrojFakture">
+        <h2 id="IzmeniFakturuNaslov">Edit</h2>
+        <form method="post" id="IzmeniFakturu" action="@Url.Action("Edit", "Documents",@Model.Document)">
+            @Html.AntiForgeryToken()
+            <label for "BrojFakture">Broj Fakture</label>
+            <input type="text" name="BrojFakture" value=@Model.Document.BrojFakture />
+            <input type="submit" value="Edit" />
+        </form>
+        <h2 id="NaslovDodajStavku">Dodaj stavku</h2>
+        <form method="post" id="DodajStavku" action="@Url.Action("Create", "Tasks")">
+            @Html.AntiForgeryToken()
+            <label for "Cena">Cena</label>
+            <input type="text" name="Cena" placeholder="Unesite cenu" />
+            <label for "Kolicina">Kolicina</label>
+            <input type="text" name="Kolicina" placeholder="Unesite kolicinu" />
+            <input type="hidden" id="Document_id" name="Document_id" value=@Model.Document.id>
+            <input type="submit" value="Create" />
+        </form>
+    </div>
+
+}
+
+
+<p>
+
+</p>
+
+@if (Model.Tasks != null)
+{
+    <table class="table">
+        <h2 id="NaslovStavke">Stavke</h2>
+
+
+        @foreach (var item in Model.Tasks)
+        {
+            <tr style="border-bottom:1px solid black">
+                <th>
+                    @Html.DisplayNameFor(model => Model.Task.Kolicina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Task.Cena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model.Task.Ukupno)
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kolicina)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ukupno)
+                </td>
+                <td>
+                    <form method="post" action="../../Tasks/DeleteTasks/@item.id">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="Taskid" name="Task_id" value=@item.id>
+                        <input type="submit" value="Delete" />
+                    </form>
+
+                </td>
+            </tr>
+            <tr>
+                <td>   
+                        <h6 id="izmeniStavkuNaslov">Izmeni stavku</h6>
+                        <form method="post" id="FormaIzmeniStavku" action="@Url.Action("Edit", "Tasks",@item)">
+                            @Html.AntiForgeryToken()
+                            <label for "Cena">Cena</label>
+                            <input type="text" name="Cena" value=@item.Cena />
+                            <label for "Kolicina">Kolicina</label>
+                            <input type="text" name="Kolicina" value=@item.Kolicina />
+                            <input type="hidden" id="Document_id" name="Document_id" value=@item.Document_id>
+                            <input type="submit" value="Edit" />
+                        </form
+                </td>
+                <td></td>
+            </tr>
+
+
+        }
+
+    </table>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+}
+
+

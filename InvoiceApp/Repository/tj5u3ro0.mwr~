@@ -1,0 +1,64 @@
+﻿using InvoiceApp.Models;
+using InvoiceApp.Repository.IRepository;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+namespace InvoiceApp.Repository
+{
+    public class TasksRepository : BaseRepository, ITasksRepository
+    {
+        public TasksRepository(Models.InvoiceApp context) : base(context)
+        {
+
+        }
+        public IQueryable<Task> Get()
+        {
+            var invoices = from m in context.Tasks
+                           select m;
+            if (invoices.Count() == 0)
+            {
+                return null;
+            }
+            return invoices;
+        }
+        public void EditTask(Task Task)
+        {
+          
+            context.Entry(Task).State = EntityState.Modified;
+            context.Entry(Task).Property(u => u.RedniBroj).IsModified = false;
+            context.Entry(Task).Property(u => u.Document_id).IsModified = false;
+            var document = Task.Document;
+            document.Ukupno = document.Tasks.Select(c => c.Ukupno).Sum();
+            context.Entry(document).State = EntityState.Modified;
+            base.SaveChanges();
+        }
+        public void AddTask(Task Task)
+        {
+            
+            context.Tasks.Add(Task);
+            Document document = context.Documents.Find(Task.Document_id);
+            document.Ukupno += Task.Ukupno;
+            context.Entry(document).State = EntityState.Modified;
+            base.SaveChanges();
+        }
+        public Task GetById(int id)
+        {
+            return context.Tasks.Find(id);
+        }
+        public void DeleteTask(int id)
+        {
+            Task Task = this.GetById(id);
+            context.Tasks.Remove(Task);
+            base.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
+    }
+
+}

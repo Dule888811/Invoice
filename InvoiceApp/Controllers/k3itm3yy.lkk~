@@ -1,0 +1,126 @@
+﻿using InvoiceApp.Repository.IRepository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using InvoiceApp.Models;
+
+namespace InvoiceApp.Controllers
+{
+    public class TasksController : Controller
+    {
+        private readonly ITasksRepository _tasksRepository;
+    public TasksController(ITasksRepository TasksRepository)
+    {
+        this._tasksRepository = TasksRepository;
+    }
+    public ActionResult Index()
+    {
+        return View();
+    }
+    public ActionResult Create()
+    {
+        return View();
+    }
+
+
+
+    public ActionResult Details(int? id)
+    {
+        if (id == null)
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+        Task Task = this._tasksRepository.GetById((int)id);
+
+        if (Task == null)
+        {
+            return HttpNotFound();
+        }
+        return View(Task);
+    }
+
+    public ActionResult Edit(int? id)
+    {
+        if (id == null)
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+        Task Task = this._tasksRepository.GetById((int)id);
+        if (Task == null)
+        {
+            return HttpNotFound();
+        }
+        return View(Task);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Edit([Bind(Include = "id,Cena,Kolicina,Task.Ukupno, Task.RedniBroj, Task.Document_id")] Task Task)
+
+    {
+        //   Random randObj = new Random(1);
+        //randObj.Next();
+        Task.Ukupno = Task.Cena * Task.Kolicina;
+        Task.RedniBroj = 555;
+        if (ModelState.IsValid)
+        {
+            this._tasksRepository.EditTask(Task);
+            return RedirectToAction("Index");
+        }
+        return View(Task);
+    }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Cena,Kolicina,Document_id,RedniBroj,Ukupno")] Task Task)
+        {
+            Task.Ukupno = Task.Kolicina * Task.Cena;
+            Random randObj = new Random();
+            Task.RedniBroj = randObj.Next();
+            if (ModelState.IsValid)
+            {
+                this._tasksRepository.AddTask(Task);
+
+                //return RedirectToAction("Index");
+            }
+
+            return View(Task);
+        }
+
+        public ActionResult Delete(int? id)
+    {
+        if (id == null)
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+        Task Task = this._tasksRepository.GetById((int)id);
+        if (Task == null)
+        {
+            return HttpNotFound();
+        }
+        return View(Task);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public ActionResult DeleteConfirmed(int id)
+    {
+        Task Task = this._tasksRepository.GetById((int)id);
+        this._tasksRepository.DeleteTask(id);
+        return RedirectToAction("Index");
+    }
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            this._tasksRepository.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+}
+    
+}
