@@ -9,7 +9,7 @@
         deleting an invoice,
         view existing invoices.
 
-      In order to successfully complete the billing process, the following requirements must be met:
+      In order to successfully complete the billing process, the following requirements must be meet:
 
       1. The invoice overview consists of displaying all existing invoices with the following columns:
         a. Invoice date (displayed in format day.month, e.g. 01.01.2019)
@@ -45,13 +45,13 @@
         f. Total value is calculated as Price * Quantity.
       6. The user can see all the invoices in the system.
 
-      7.User can start the process of creating a new invoice by displaying a page for
+      7.User can start the process of creating a new invoice whereby displaying a page for
       insert of new invoice.
 
       8. The user can delete any invoice from the invoice list.
 
-      9.The user can select any invoice and start the change process. In this scenario
-      user is shown an invoice edit page (the same one he used to create).
+      9.The user can select any invoice and start the changing process. In this scenario
+      to user is shown an page for editing invoice (the same one he used to create).
 
       10.On the page for creating a new invoice, the user can create a new item.
 
@@ -61,11 +61,11 @@
 
               Technical requirement
       For database you can use  MS Sql Server or MySql or Postgresql.
-      Use one of the .NET technologies (.NET Framework or .net to implement the web solution)
+      Use one of the .NET technologies (.NET Framework or .net to implement the web solution
       core). 
       
-      <p>
-      Clicking on "Fakture" user will see all invoices. Clicking on "Napravi fakturu" user go on page where he can create invoice. By         clicking on edit he can edit invoice,items,deleted items on same page.
+    
+      Clicking on "Fakture" user will see all invoices. Clicking on "Napravi fakturu" user go on page where he can create invoice. By         clicking on "edit" after clicing  he can edit invoice,items,deleted items on same page and add new items.
       I used repository pattern and code first approach. 
-      </p>
+    
 </p>
