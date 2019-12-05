@@ -64,5 +64,8 @@
       Use one of the .NET technologies (.NET Framework or .net to implement the web solution)
       core). 
       
-      <p>I used repository pattern and code first approach. </p>
+      <p>
+      Clicking on "Fakture" user will see all invoices. Clicking on "Napravi fakturu" user go on page where he can create invoice. By         clicking on edit he can edit invoice,items,deleted items on same page.
+      I used repository pattern and code first approach. 
+      </p>
 </p>
