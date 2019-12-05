@@ -65,7 +65,7 @@
       core). 
       
     
-      Clicking on "Fakture" user will see all invoices. Clicking on "Napravi fakturu" user go on page where he can create invoice. By         clicking on "edit" after clicing  he can edit invoice,items,deleted items on same page and add new items.
+      Clicking on "Fakture" user will see all invoices. Clicking on "Napravi fakturu" user go on page where he can create invoice. By         clicking on "edit" after clicing on "Fatkure"  he can edit invoice,items,delete items and add new items on same page .
       I used repository pattern and code first approach. 
     
 </p>
